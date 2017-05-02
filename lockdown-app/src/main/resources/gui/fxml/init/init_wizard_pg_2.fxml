@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vektorsoft.lockdown.app.init.KeyringCreateController">
+   <children>
+      <Label text="Seed words" />
+      <TextArea editable="false" prefHeight="109.0" prefWidth="590.0">
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </TextArea>
+      <Label text="Do you want to set password?" />
+      <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="600.0">
+         <children>
+            <CheckBox alignment="TOP_LEFT" mnemonicParsing="false" text="Set password">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </CheckBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <GridPane prefHeight="60.0" prefWidth="484.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" maxWidth="293.0" minWidth="10.0" prefWidth="147.0" />
+          <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="524.0" minWidth="10.0" prefWidth="433.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Password:" GridPane.hgrow="NEVER" />
+            <Label text="Confirm password:" GridPane.rowIndex="1" />
+            <PasswordField disable="true" prefHeight="26.0" prefWidth="403.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
+            <PasswordField disable="true" prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+         </children>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+         <VBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </VBox.margin>
+      </GridPane>
+      <Label text="Password mismatch" textFill="#f50c0c" />
+   </children>
+</VBox>
