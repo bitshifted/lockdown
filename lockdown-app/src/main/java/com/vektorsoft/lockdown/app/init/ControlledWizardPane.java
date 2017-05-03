@@ -40,10 +40,14 @@ public class ControlledWizardPane extends WizardPane {
             case 2:
                 controller.generateMnemonicWords();
                 wizard.invalidProperty().unbind();
-                wizard.invalidProperty().bind(controller.getPasswordMismatchObservable().matchValue());
+                wizard.invalidProperty().bind(controller.getPasswordMatchObservable(2).matchValue());
                 break;
             case 3:
                 controller.initMnemonicQRCode();
+                break;
+            case 4:
+                wizard.invalidProperty().unbind();
+                wizard.invalidProperty().bind(controller.getPasswordMatchObservable(4).matchValue());
                 break;
         }
 

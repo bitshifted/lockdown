@@ -60,8 +60,9 @@ public class KeyringCreateWizard extends Wizard {
         page3.setHeaderText("Wizard  page 3");
         page3.setContent(page3content);
         
-        page4 = new WizardPane();
-        Node page4content = FXMLLoader.load(getClass().getResource(KeyringCreateController.WIZARD_PAGE_FOUR_URL), resources);
+        FXMLLoader loader4 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_FOUR_URL), resources);
+        Node page4content = loader4.load();
+        page4 = new ControlledWizardPane(loader4.getController(), 4);
         page4.setHeaderText("Wizard page 4");
         page4.setContent(page4content);
         

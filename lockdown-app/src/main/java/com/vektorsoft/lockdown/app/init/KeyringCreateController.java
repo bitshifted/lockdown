@@ -26,9 +26,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -38,7 +36,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.print.PrinterJob;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -63,7 +60,12 @@ public class KeyringCreateController implements Initializable {
     public static final String WIZARD_PAGE_THREE_URL = "/gui/fxml/init/init_wizard_pg_3.fxml";
     public static final String WIZARD_PAGE_FOUR_URL = "/gui/fxml/init/init_wizard_pg_4.fxml";
 
-    private PasswordMismatchObservable passwordMismatchObservable;
+    /**
+     * Observable for matching mnemonic password.
+     */
+    private PasswordMatchObservable mnemonicPswdMatchObservable;
+    
+    private PasswordMatchObservable keyringPswdMatchObservable;
 
     @FXML
     private ComboBox<MnemonicLanguage> seedLanguageCombo;
@@ -81,6 +83,12 @@ public class KeyringCreateController implements Initializable {
     private PasswordField mnemonicPassConfirmField;
     @FXML
     private Button printButton;
+    @FXML
+    private PasswordField keyringPswdField;
+    @FXML
+    private PasswordField keyringPswdConfirmField;
+    @FXML
+    private Label keyringPasswordMismatchLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -100,7 +108,7 @@ public class KeyringCreateController implements Initializable {
             });
         } else if (location.toString().endsWith(WIZARD_PAGE_TWO_URL)) {
             LOGGER.debug("initialize page 2");
-            passwordMismatchObservable = new PasswordMismatchObservable(mnemonicPasswordField.textProperty(), mnemonicPassConfirmField.textProperty());
+            mnemonicPswdMatchObservable = new PasswordMatchObservable(mnemonicPasswordField.textProperty(), mnemonicPassConfirmField.textProperty());
             mnemonicPasswordCheckbox.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                 mnemonicPasswordField.setDisable(!newValue);
                 mnemonicPassConfirmField.setDisable(!newValue);
@@ -110,8 +118,8 @@ public class KeyringCreateController implements Initializable {
                     mnemonicPassConfirmField.clear();
                 }
             });
-            passwordMismatchLabel.visibleProperty().bind(passwordMismatchObservable.matchValue());
-            passwordMismatchObservable.matchValue().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            passwordMismatchLabel.visibleProperty().bind(mnemonicPswdMatchObservable.matchValue());
+            mnemonicPswdMatchObservable.matchValue().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                 if (!newValue) {
                     Initializer.instance().setMnemonicPassword(mnemonicPasswordField.getText());
                 }
@@ -130,6 +138,10 @@ public class KeyringCreateController implements Initializable {
                     job.endJob();
                 }
             });
+        } else {
+            LOGGER.debug("Initialize page 4");
+            keyringPswdMatchObservable = new PasswordMatchObservable(keyringPswdField.textProperty(), keyringPswdConfirmField.textProperty());
+            keyringPasswordMismatchLabel.visibleProperty().bind(keyringPswdMatchObservable.matchValue());
         }
     }
 
@@ -147,8 +159,11 @@ public class KeyringCreateController implements Initializable {
 
     }
 
-    public PasswordMismatchObservable getPasswordMismatchObservable() {
-        return passwordMismatchObservable;
+    public PasswordMatchObservable getPasswordMatchObservable(int page) {
+        if(page == 2) {
+            return mnemonicPswdMatchObservable;
+        }
+        return keyringPswdMatchObservable;
     }
 
     public void initMnemonicQRCode() {

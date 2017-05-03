@@ -27,16 +27,16 @@ import org.slf4j.LoggerFactory;
  *
  * @author Vladimir Djurovic <vdjurovic@vektorsoft.com>
  */
-public class PasswordMismatchObservable {
+public class PasswordMatchObservable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PasswordMismatchObservable.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PasswordMatchObservable.class);
 
     private final StringProperty pswdProperty;
     private final StringProperty confirmationProperty;
 
     private final SimpleBooleanProperty matchProperty;
 
-    public PasswordMismatchObservable(StringProperty password, StringProperty confirmation) {
+    public PasswordMatchObservable(StringProperty password, StringProperty confirmation) {
         this.pswdProperty = password;
         this.confirmationProperty = confirmation;
         matchProperty = new SimpleBooleanProperty();
