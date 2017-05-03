@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vektorsoft.lockdown.app.init.KeyringCreateController">
    <children>
       <Label text="Print words and QR code" />
@@ -22,7 +21,7 @@
                   <Insets left="10.0" right="20.0" />
                </HBox.margin>
             </ImageView>
-            <Button mnemonicParsing="false" text="Button">
+            <Button fx:id="printButton" mnemonicParsing="false" text="Print">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

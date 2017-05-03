@@ -19,8 +19,13 @@ package com.vektorsoft.lockdown.app.init;
 
 import com.vektorsoft.lockdown.app.LockdownConstants;
 import com.vektorsoft.lockdown.app.LockdownUtil;
+import com.vektorsoft.lockdown.crypto.seed.EntropyInfo;
+import com.vektorsoft.lockdown.crypto.seed.Mnemonic;
 import com.vektorsoft.lockdown.crypto.seed.MnemonicLanguage;
 import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import javafx.scene.Scene;
 
 /**
  * Initializes application with runtime configuration.
@@ -44,6 +49,9 @@ public class Initializer {
     }
     
     private MnemonicLanguage mnemonicLanguage;
+    private String[] mnemonicWords;
+    private String mnemonicPassword;
+    private Scene scene;
 
     
     public boolean checkFileStructure() {
@@ -66,6 +74,62 @@ public class Initializer {
 
     public void setMnemonicLanguage(MnemonicLanguage mnemonicLanguage) {
         this.mnemonicLanguage = mnemonicLanguage;
+    }
+
+    public void setMnemonicPassword(String mnemonicPassword) {
+        this.mnemonicPassword = mnemonicPassword;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+        System.out.println("Window: " + scene.getWindow());
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+    
+    /**
+     * Returns combination of mnemonic words and password. This is used for QR code generation. Returned
+     * string has the following format:
+     * <pre>
+     *  <code>
+     *      "word1 word2 word3 ..... word12{}password"
+     *  </code>
+     * </pre>
+     * 
+     * @return combination of mnemonic words and password
+     */
+    public String getMnemonicWithPassword() {
+        StringBuilder sb = new StringBuilder();
+        for(String word : mnemonicWords) {
+            sb.append(word).append(" ");
+        }
+        sb.append("{}");
+        sb.append(mnemonicPassword);
+        
+        return sb.toString();
+    }
+    
+    public String getMnemonicWords() {
+        StringBuilder sb = new StringBuilder();
+        for(String word : mnemonicWords) {
+            sb.append(word).append(" ");
+        }
+        return sb.toString();
+    }
+
+    public String getMnemonicPassword() {
+        return mnemonicPassword;
+    }
+    
+    public String[] generateMnemonicWords() throws IOException, NoSuchAlgorithmException {
+        if(mnemonicWords == null) {
+            Mnemonic mnemonic = new Mnemonic();
+            mnemonicWords = mnemonic.generateMnemonic(mnemonicLanguage, EntropyInfo.ENTROPY_128_BITS);
+        }
+        
+        return mnemonicWords;
     }
     
 }

@@ -21,23 +21,6 @@ package com.vektorsoft.lockdown.crypto.seed;
  *
  * @author Vladimir Djurovic <vdjurovic@vektorsoft.com>
  */
-public enum MnemonicLanguage {
-    ENGLISH ("English"),
-    SPANISH ("Espanol"),
-    CHINESE ("Chinese"),
-    JAPANESE ("Japanese");
-    
-    private MnemonicLanguage(String title) {
-        this.title = title;
-    }
-    
-    private final String title;
+public class Sdf {
 
-    @Override
-    public String toString() {
-        return title;
-    }
-    
-    
-    
 }

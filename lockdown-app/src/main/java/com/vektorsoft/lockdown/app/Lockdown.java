@@ -19,17 +19,10 @@ package com.vektorsoft.lockdown.app;
 import com.vektorsoft.lockdown.app.init.InitialSelectionScreen;
 import com.vektorsoft.lockdown.app.init.Initializer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -46,22 +39,6 @@ public class Lockdown extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-//        Button btn = new Button();
-//        btn.setText("Say 'Hello World'");
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("Hello World!");
-//                InitialWizard wiz = new InitialWizard();
-//                wiz.showAndWait().ifPresent(result -> {
-//                    if(result == ButtonType.FINISH) {
-//                        System.out.println("Finished");
-//                        System.out.println("Pass: " + wiz.getSettings().get("pass"));
-//                    }
-//                });
-//            }
-//        });
 
         StackPane root = new StackPane();
         if (needsInit) {
@@ -78,6 +55,7 @@ public class Lockdown extends Application {
         }
 
         Scene scene = new Scene(root, 600, 400);
+        Initializer.instance().setScene(scene);
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);

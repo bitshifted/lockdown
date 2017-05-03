@@ -21,23 +21,38 @@ package com.vektorsoft.lockdown.crypto.seed;
  *
  * @author Vladimir Djurovic <vdjurovic@vektorsoft.com>
  */
-public enum MnemonicLanguage {
-    ENGLISH ("English"),
-    SPANISH ("Espanol"),
-    CHINESE ("Chinese"),
-    JAPANESE ("Japanese");
+public enum EntropyInfo {
     
-    private MnemonicLanguage(String title) {
-        this.title = title;
+    ENTROPY_128_BITS (128, 4, 12),
+    ENTROPY_160_BITS (160, 5, 15),
+    ENTROPY_192_BITS (192, 6, 18),
+    ENTROPY_224_BITS (224, 7, 21),
+    ENTROPY_256_BITS (256, 8, 24);
+    
+    private final int entropyLength;
+    private final int checksumLength;
+    private final int wordCount;
+    
+    EntropyInfo(int entropyLength, int checksumLength, int wordCount) {
+        this.entropyLength = entropyLength;
+        this.checksumLength = checksumLength;
+        this.wordCount = wordCount;
     }
-    
-    private final String title;
 
-    @Override
-    public String toString() {
-        return title;
+    public int getEntropyLength() {
+        return entropyLength;
+    }
+
+    public int getChecksumLength() {
+        return checksumLength;
+    }
+
+    public int getWordCount() {
+        return wordCount;
     }
     
-    
+    public int totalLength() {
+        return entropyLength + checksumLength;
+    }
     
 }

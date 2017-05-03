@@ -5,11 +5,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vektorsoft.lockdown.app.init.KeyringCreateController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vektorsoft.lockdown.app.init.KeyringCreateController">
    <children>
       <Label text="Seed words" />
-      <TextArea editable="false" prefHeight="109.0" prefWidth="590.0">
+      <TextArea fx:id="mnemonicWordsText" editable="false" prefHeight="90.0" prefWidth="580.0">
          <padding>
             <Insets top="10.0" />
          </padding>
@@ -20,7 +19,7 @@
       <Label text="Do you want to set password?" />
       <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="600.0">
          <children>
-            <CheckBox alignment="TOP_LEFT" mnemonicParsing="false" text="Set password">
+            <CheckBox fx:id="mnemonicPasswordCheckbox" alignment="TOP_LEFT" mnemonicParsing="false" text="Set password">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
@@ -42,8 +41,8 @@
          <children>
             <Label text="Password:" GridPane.hgrow="NEVER" />
             <Label text="Confirm password:" GridPane.rowIndex="1" />
-            <PasswordField disable="true" prefHeight="26.0" prefWidth="403.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
-            <PasswordField disable="true" prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+            <PasswordField fx:id="mnemonicPasswordField" disable="true" prefHeight="26.0" prefWidth="403.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
+            <PasswordField fx:id="mnemonicPassConfirmField" disable="true" prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
          </children>
          <padding>
             <Insets left="5.0" right="5.0" />
@@ -52,6 +51,9 @@
             <Insets left="5.0" right="5.0" />
          </VBox.margin>
       </GridPane>
-      <Label text="Password mismatch" textFill="#f50c0c" />
+      <Label fx:id="passwordMismatchLabel" text="Password mismatch" textFill="#f50c0c" visible="false" />
    </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+   </padding>
 </VBox>

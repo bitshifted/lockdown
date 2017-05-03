@@ -19,11 +19,10 @@ package com.vektorsoft.lockdown.app.init;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
@@ -43,7 +42,6 @@ public class InitialSelectionScreen {
         
         Button createKeyringButton = (Button)screenNode.lookup("#createKeyringButton");
         createKeyringButton.setOnAction((ActionEvent event) -> {
-            System.out.println("create new keyring");
             wizard.showAndWait().ifPresent(result -> {
                 if(result == ButtonType.FINISH) {
                     System.out.println("wizard finished");

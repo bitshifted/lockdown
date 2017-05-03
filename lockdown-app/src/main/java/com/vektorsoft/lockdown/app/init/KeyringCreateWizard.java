@@ -34,6 +34,7 @@ public class KeyringCreateWizard extends Wizard {
     private final WizardPane page1;
     private final WizardPane page2;
     private final WizardPane page3;
+    private final WizardPane page4;
     
     private final ResourceBundle resources;
 
@@ -47,16 +48,23 @@ public class KeyringCreateWizard extends Wizard {
         page1.setContent(page1Content);
         
         
-        page2 = new WizardPane();
-        Node page2Content = FXMLLoader.load(getClass().getResource(KeyringCreateController.WIZARD_PAGE_TWO_URL), resources);
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_TWO_URL), resources);
+        Node page2Content = loader2.load();
+        page2 = new ControlledWizardPane(loader2.getController(), 2);
         page2.setHeaderText("Wizard page 2");
         page2.setContent(page2Content);
         
-        page3 = new WizardPane();
-        Node page3content = FXMLLoader.load(getClass().getResource(KeyringCreateController.WIZARD_PAGE_THREE_URL), resources);
+        FXMLLoader loader3 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_THREE_URL), resources);
+        Node page3content = loader3.load();
+        page3 = new ControlledWizardPane(loader3.getController(), 3);
         page3.setHeaderText("Wizard  page 3");
         page3.setContent(page3content);
         
-        setFlow(new LinearFlow(page1, page2, page3));
+        page4 = new WizardPane();
+        Node page4content = FXMLLoader.load(getClass().getResource(KeyringCreateController.WIZARD_PAGE_FOUR_URL), resources);
+        page4.setHeaderText("Wizard page 4");
+        page4.setContent(page4content);
+        
+        setFlow(new LinearFlow(page1, page2, page3, page4));
     }
 }
