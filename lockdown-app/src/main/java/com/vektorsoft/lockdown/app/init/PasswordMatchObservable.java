@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Observable for matching password entries to make sure that are the same.
+ * Observable for matching password entries to make sure they are the same.
  *
  * @author Vladimir Djurovic <vdjurovic@vektorsoft.com>
  */
@@ -42,13 +42,13 @@ public class PasswordMatchObservable {
         matchProperty = new SimpleBooleanProperty();
 
         pswdProperty.addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            matchProperty.setValue(!newValue.equals(confirmationProperty.get()));
-            LOGGER.debug("Match value: " + matchProperty.get());
+            if(!confirmationProperty.get().isEmpty()) {
+                matchProperty.setValue(!(newValue.equals(confirmationProperty.get())));
+            }
         });
 
         confirmationProperty.addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             matchProperty.setValue(!newValue.equals(pswdProperty.get()));
-            LOGGER.debug("Match value: " + matchProperty.get());
         });
     }
 
