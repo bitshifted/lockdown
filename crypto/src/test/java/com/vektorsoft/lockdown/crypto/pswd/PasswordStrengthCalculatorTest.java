@@ -36,14 +36,12 @@ public class PasswordStrengthCalculatorTest {
     @Test
     public void simplePasswordTest() {
         String pass = "password";
-        PasswordStrengthCalculator calculator = new PasswordStrengthCalculator();
-        int score = calculator.calculateStrength(pass);
-        assertEquals(32, score);
+        int score = PasswordStrengthCalculator.calculateStrength(pass);
+        assertEquals(10, score);
         
         pass = "password123";
-        calculator = new PasswordStrengthCalculator();
-        score = calculator.calculateStrength(pass);
-        assertEquals(66, score);
+        score = PasswordStrengthCalculator.calculateStrength(pass);
+        assertEquals(48, score);
     }
     
 }

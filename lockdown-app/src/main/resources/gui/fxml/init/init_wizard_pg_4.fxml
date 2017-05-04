@@ -32,7 +32,7 @@
                </GridPane.margin>
             </PasswordField>
             <Label text="Passphrase strength:" GridPane.rowIndex="2" />
-            <ProgressBar prefHeight="20.0" prefWidth="300.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+            <ProgressBar fx:id="pswdStrengthBar" prefHeight="20.0" prefWidth="300.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>

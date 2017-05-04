@@ -21,11 +21,13 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.vektorsoft.lockdown.crypto.pswd.PasswordStrengthCalculator;
 import com.vektorsoft.lockdown.crypto.seed.MnemonicLanguage;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -41,6 +43,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import org.slf4j.Logger;
@@ -66,6 +69,7 @@ public class KeyringCreateController implements Initializable {
     private PasswordMatchObservable mnemonicPswdMatchObservable;
     
     private PasswordMatchObservable keyringPswdMatchObservable;
+    private PasswordStrengthCalculator pswdStrengthCalc;
 
     @FXML
     private ComboBox<MnemonicLanguage> seedLanguageCombo;
@@ -89,14 +93,14 @@ public class KeyringCreateController implements Initializable {
     private PasswordField keyringPswdConfirmField;
     @FXML
     private Label keyringPasswordMismatchLabel;
+    @FXML
+    private ProgressBar pswdStrengthBar;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LOGGER.info("Initializing controller with URL {}", location);
         if (location.toString().endsWith(WIZARD_PAGE_ONE_URL)) {
-            for (MnemonicLanguage lang : MnemonicLanguage.values()) {
-                seedLanguageCombo.getItems().add(lang);
-            }
+            seedLanguageCombo.getItems().addAll(Arrays.asList(MnemonicLanguage.values()));
             seedLanguageCombo.valueProperty().setValue(MnemonicLanguage.ENGLISH);
             Initializer.instance().setMnemonicLanguage(MnemonicLanguage.ENGLISH);
             seedLanguageCombo.valueProperty().addListener(new ChangeListener<MnemonicLanguage>() {
@@ -142,6 +146,12 @@ public class KeyringCreateController implements Initializable {
             LOGGER.debug("Initialize page 4");
             keyringPswdMatchObservable = new PasswordMatchObservable(keyringPswdField.textProperty(), keyringPswdConfirmField.textProperty());
             keyringPasswordMismatchLabel.visibleProperty().bind(keyringPswdMatchObservable.matchValue());
+            
+            pswdStrengthCalc = new PasswordStrengthCalculator();
+            keyringPswdField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                int strength = pswdStrengthCalc.calculateStrength(newValue);
+                pswdStrengthBar.setProgress(((double)strength/100));
+            });
         }
     }
 
