@@ -17,12 +17,12 @@
 
 package com.vektorsoft.lockdown.app.init;
 
+import com.vektorsoft.lockdown.app.ResourceConstants;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
@@ -33,11 +33,13 @@ import javafx.scene.control.ButtonType;
  */
 public class InitialSelectionScreen {
     
+    private static final String FXML_LOCATION = "/gui/fxml/init/init_choice.fxml";
+    
     private final Node screenNode;
     private final KeyringCreateWizard wizard;
     
     public InitialSelectionScreen() throws IOException {
-        screenNode = FXMLLoader.load(this.getClass().getResource("/gui/fxml/init/init_choice.fxml"), ResourceBundle.getBundle("gui/lang/init/init_screen_strings"));
+        screenNode = FXMLLoader.load(this.getClass().getResource(FXML_LOCATION), ResourceBundle.getBundle(ResourceConstants.INIT_SCREEN_STRINGS));
         wizard = new KeyringCreateWizard();
         
         Button createKeyringButton = (Button)screenNode.lookup("#createKeyringButton");

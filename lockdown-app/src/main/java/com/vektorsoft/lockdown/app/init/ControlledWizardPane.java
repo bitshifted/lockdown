@@ -37,17 +37,17 @@ public class ControlledWizardPane extends WizardPane {
     @Override
     public void onEnteringPage(Wizard wizard) {
         switch (page) {
-            case 2:
+            case KeyringCreateController.WIZ_WORDS_PAGE:
                 controller.generateMnemonicWords();
                 wizard.invalidProperty().unbind();
-                wizard.invalidProperty().bind(controller.getPasswordMatchObservable(2).matchValue());
+                wizard.invalidProperty().bind(controller.getPasswordMatchObservable(KeyringCreateController.WIZ_WORDS_PAGE).matchValue());
                 break;
-            case 3:
+            case KeyringCreateController.WIZ_QR_CODE_PAGE:
                 controller.initMnemonicQRCode();
                 break;
-            case 4:
+            case KeyringCreateController.WIZ_PASSWORD_PAGE:
                 wizard.invalidProperty().unbind();
-                wizard.invalidProperty().bind(controller.getPasswordMatchObservable(4).matchValue());
+                wizard.invalidProperty().bind(controller.getPasswordMatchObservable(KeyringCreateController.WIZ_PASSWORD_PAGE).matchValue());
                 break;
         }
 

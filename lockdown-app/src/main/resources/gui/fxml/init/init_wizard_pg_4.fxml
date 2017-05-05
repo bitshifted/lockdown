@@ -7,7 +7,7 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vektorsoft.lockdown.app.init.KeyringCreateController">
    <children>
-      <Label text="Create password" />
+      <Label text="%page4.explain" wrapText="true" />
       <GridPane>
         <columnConstraints>
           <ColumnConstraints hgrow="NEVER" maxWidth="280.0" minWidth="10.0" prefWidth="167.0" />
@@ -19,8 +19,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Passphrase:" />
-            <Label text="Confirm passphrase:" GridPane.rowIndex="1" />
+            <Label text="%page4.passphrase.field" />
+            <Label text="%page4.passphrase.confirm" GridPane.rowIndex="1" />
             <PasswordField fx:id="keyringPswdField" prefHeight="26.0" prefWidth="320.0" promptText="Enter password" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets left="10.0" />
@@ -31,7 +31,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </PasswordField>
-            <Label text="Passphrase strength:" GridPane.rowIndex="2" />
+            <Label text="%page4.passphrase.strength" GridPane.rowIndex="2" />
             <ProgressBar fx:id="pswdStrengthBar" prefHeight="20.0" prefWidth="300.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />

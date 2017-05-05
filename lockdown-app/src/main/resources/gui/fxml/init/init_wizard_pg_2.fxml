@@ -7,7 +7,7 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vektorsoft.lockdown.app.init.KeyringCreateController">
    <children>
-      <Label text="Seed words" />
+      <Label text="%page2.words.explain" wrapText="true" />
       <TextArea fx:id="mnemonicWordsText" editable="false" prefHeight="90.0" prefWidth="580.0">
          <padding>
             <Insets top="10.0" />
@@ -16,10 +16,10 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </TextArea>
-      <Label text="Do you want to set password?" />
+      <Label text="%page2.password.explain" wrapText="true" />
       <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="600.0">
          <children>
-            <CheckBox fx:id="mnemonicPasswordCheckbox" alignment="TOP_LEFT" mnemonicParsing="false" text="Set password">
+            <CheckBox fx:id="mnemonicPasswordCheckbox" alignment="TOP_LEFT" mnemonicParsing="false" text="%page2.password.checkbox">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
@@ -39,8 +39,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Password:" GridPane.hgrow="NEVER" />
-            <Label text="Confirm password:" GridPane.rowIndex="1" />
+            <Label text="%page2.password.field" GridPane.hgrow="NEVER" />
+            <Label text="%page2.password.confirm" GridPane.rowIndex="1" />
             <PasswordField fx:id="mnemonicPasswordField" disable="true" prefHeight="26.0" prefWidth="403.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
             <PasswordField fx:id="mnemonicPassConfirmField" disable="true" prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
          </children>

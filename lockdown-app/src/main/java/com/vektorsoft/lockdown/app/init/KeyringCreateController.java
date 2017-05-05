@@ -62,6 +62,11 @@ public class KeyringCreateController implements Initializable {
     public static final String WIZARD_PAGE_TWO_URL = "/gui/fxml/init/init_wizard_pg_2.fxml";
     public static final String WIZARD_PAGE_THREE_URL = "/gui/fxml/init/init_wizard_pg_3.fxml";
     public static final String WIZARD_PAGE_FOUR_URL = "/gui/fxml/init/init_wizard_pg_4.fxml";
+    
+    public static final int WIZ_LANG_SELECT_PAGE = 1;
+    public static final int WIZ_WORDS_PAGE = 2;
+    public static final int WIZ_QR_CODE_PAGE = 3;
+    public static final int WIZ_PASSWORD_PAGE = 4;
 
     /**
      * Observable for matching mnemonic password.
@@ -170,7 +175,7 @@ public class KeyringCreateController implements Initializable {
     }
 
     public PasswordMatchObservable getPasswordMatchObservable(int page) {
-        if(page == 2) {
+        if(page == WIZ_WORDS_PAGE ) {
             return mnemonicPswdMatchObservable;
         }
         return keyringPswdMatchObservable;
