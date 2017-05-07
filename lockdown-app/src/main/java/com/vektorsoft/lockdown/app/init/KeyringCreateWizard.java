@@ -32,10 +32,11 @@ import org.controlsfx.dialog.WizardPane;
  */
 public class KeyringCreateWizard extends Wizard {
     
-    private final WizardPane page1;
-    private final WizardPane page2;
-    private final WizardPane page3;
-    private final WizardPane page4;
+    private final WizardPane languageSelectionPage;
+    private final WizardPane mnemonicWordsPage;
+    private final WizardPane printPage;
+    private final WizardPane keyringPasswordPage;
+    private final WizardPane keyringCreatePage;
     
     private final ResourceBundle resources;
 
@@ -43,30 +44,36 @@ public class KeyringCreateWizard extends Wizard {
         resources = ResourceBundle.getBundle(ResourceConstants.KEYRING_CREATE_WIZARD_STRINGS);
         setTitle(resources.getString("create.keyring.wizard.title"));
         
-        page1 = new WizardPane();
+        languageSelectionPage = new WizardPane();
         Node page1Content = FXMLLoader.load(getClass().getResource(KeyringCreateController.WIZARD_PAGE_ONE_URL), resources);
-        page1.setHeaderText(resources.getString("page1.header"));
-        page1.setContent(page1Content);
+        languageSelectionPage.setHeaderText(resources.getString("page1.header"));
+        languageSelectionPage.setContent(page1Content);
         
         
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_TWO_URL), resources);
         Node page2Content = loader2.load();
-        page2 = new ControlledWizardPane(loader2.getController(), KeyringCreateController.WIZ_WORDS_PAGE);
-        page2.setHeaderText(resources.getString("page2.header"));
-        page2.setContent(page2Content);
+        mnemonicWordsPage = new ControlledWizardPane(loader2.getController(), KeyringCreateController.WIZ_WORDS_PAGE);
+        mnemonicWordsPage.setHeaderText(resources.getString("page2.header"));
+        mnemonicWordsPage.setContent(page2Content);
         
         FXMLLoader loader3 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_THREE_URL), resources);
         Node page3content = loader3.load();
-        page3 = new ControlledWizardPane(loader3.getController(), KeyringCreateController.WIZ_QR_CODE_PAGE);
-        page3.setHeaderText(resources.getString("page3.header"));
-        page3.setContent(page3content);
+        printPage = new ControlledWizardPane(loader3.getController(), KeyringCreateController.WIZ_QR_CODE_PAGE);
+        printPage.setHeaderText(resources.getString("page3.header"));
+        printPage.setContent(page3content);
         
         FXMLLoader loader4 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_FOUR_URL), resources);
         Node page4content = loader4.load();
-        page4 = new ControlledWizardPane(loader4.getController(), KeyringCreateController.WIZ_PASSWORD_PAGE);
-        page4.setHeaderText(resources.getString("page4.header"));
-        page4.setContent(page4content);
+        keyringPasswordPage = new ControlledWizardPane(loader4.getController(), KeyringCreateController.WIZ_PASSWORD_PAGE);
+        keyringPasswordPage.setHeaderText(resources.getString("page4.header"));
+        keyringPasswordPage.setContent(page4content);
         
-        setFlow(new LinearFlow(page1, page2, page3, page4));
+        FXMLLoader loader5 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_FIVE_URL), resources);
+        Node page5content = loader5.load();
+        keyringCreatePage = new ControlledWizardPane(loader5.getController(), KeyringCreateController.WIZ_KEYRING_CREATE_PAGE);
+        keyringCreatePage.setHeaderText(resources.getString("page5.header"));
+        keyringCreatePage.setContent(page5content);
+        
+        setFlow(new LinearFlow(languageSelectionPage, mnemonicWordsPage, printPage, keyringPasswordPage, keyringCreatePage));
     }
 }

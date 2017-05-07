@@ -49,6 +49,9 @@ public class ControlledWizardPane extends WizardPane {
                 wizard.invalidProperty().unbind();
                 wizard.invalidProperty().bind(controller.getPasswordMatchObservable(KeyringCreateController.WIZ_PASSWORD_PAGE).matchValue());
                 break;
+            case KeyringCreateController.WIZ_KEYRING_CREATE_PAGE:
+                controller.generateKeyring();
+                break;
         }
 
     }

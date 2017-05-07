@@ -8,14 +8,21 @@
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vektorsoft.lockdown.app.init.KeyringCreateController">
    <children>
       <Label text="%page2.words.explain" wrapText="true" />
-      <TextArea fx:id="mnemonicWordsText" editable="false" prefHeight="90.0" prefWidth="580.0">
-         <padding>
-            <Insets top="10.0" />
-         </padding>
+      <HBox fx:id="mnemonicContainer" alignment="CENTER" spacing="10.0">
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
-      </TextArea>
+         <children>
+            <TextArea fx:id="mnemonicWordsText" editable="false" prefHeight="90.0" prefWidth="580.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </TextArea>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
       <Label text="%page2.password.explain" wrapText="true" />
       <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="600.0">
          <children>
