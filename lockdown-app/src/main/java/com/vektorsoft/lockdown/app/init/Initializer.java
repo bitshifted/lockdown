@@ -19,12 +19,15 @@ package com.vektorsoft.lockdown.app.init;
 
 import com.vektorsoft.lockdown.app.LockdownConstants;
 import com.vektorsoft.lockdown.app.LockdownUtil;
+import com.vektorsoft.lockdown.crypto.seed.DeviceSeed;
 import com.vektorsoft.lockdown.crypto.seed.EntropyInfo;
+import com.vektorsoft.lockdown.crypto.seed.MasterSeed;
 import com.vektorsoft.lockdown.crypto.seed.Mnemonic;
 import com.vektorsoft.lockdown.crypto.seed.MnemonicLanguage;
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import javafx.scene.Scene;
 
 /**
@@ -51,6 +54,7 @@ public class Initializer {
     private MnemonicLanguage mnemonicLanguage;
     private String[] mnemonicWords;
     private String mnemonicPassword;
+    private String deviceName;
     private Scene scene;
 
     
@@ -67,9 +71,17 @@ public class Initializer {
     
     /**
      * Create keyring file structure.
+     * @throws java.io.IOException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.spec.InvalidKeySpecException
      */
-    public void createKeyring() {
-        
+    public void createKeyring() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        // generate master seed
+        MasterSeed masterSeed = new MasterSeed();
+        byte[] masterSeedBytes = masterSeed.generateSeedFromMnemonic(mnemonicWords, mnemonicPassword, mnemonicLanguage);
+        // generate device seed
+        DeviceSeed devSeed = new DeviceSeed();
+        byte[] deviceSeed = devSeed.generateDeviceSeed(masterSeedBytes, deviceName);
     }
 
     public void setMnemonicLanguage(MnemonicLanguage mnemonicLanguage) {
@@ -80,6 +92,10 @@ public class Initializer {
         this.mnemonicPassword = mnemonicPassword;
     }
 
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+    
     public void setScene(Scene scene) {
         this.scene = scene;
         System.out.println("Window: " + scene.getWindow());

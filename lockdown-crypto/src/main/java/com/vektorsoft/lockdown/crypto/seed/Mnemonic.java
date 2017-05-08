@@ -17,6 +17,7 @@
 
 package com.vektorsoft.lockdown.crypto.seed;
 
+import com.vektorsoft.lockdown.crypto.LockdownCrypto;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -34,7 +35,7 @@ public class Mnemonic {
     /**
      * 
      * @param language language for mnemonic words
-     * @param length entropy length in bits
+     * @param entropyInfo entropy information
      * @return
      * @throws IOException 
      * @throws NoSuchAlgorithmException
@@ -44,7 +45,7 @@ public class Mnemonic {
         wordlist.loadWordlist(language);
         
         // generate random entropy
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", LockdownCrypto.instance().getProvider());
         byte[] entropyBytes = new byte[entropyInfo.getEntropyLength()/8];
         random.nextBytes(entropyBytes);
         BitSet entropyBits = BitSet.valueOf(entropyBytes); // bit set of entropy 

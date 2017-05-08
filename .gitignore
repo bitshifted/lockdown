@@ -18,3 +18,5 @@ nbactions.xml
 nb-configuration.xml
 
 /crypto/nbproject/
+/lockdown-crypto/target/
+/lockdown-crypto/nbproject/

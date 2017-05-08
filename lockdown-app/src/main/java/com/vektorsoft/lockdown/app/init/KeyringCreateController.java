@@ -34,7 +34,6 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,6 +46,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
@@ -118,6 +118,8 @@ public class KeyringCreateController implements Initializable {
     private Label keyringProgressLabel;
     @FXML
     private Label generationSuccessLabel;
+    @FXML
+    private TextField deviceNameField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -133,6 +135,9 @@ public class KeyringCreateController implements Initializable {
                     LOGGER.debug("Selected seed language: {}", newValue);
                     Initializer.instance().setMnemonicLanguage(newValue);
                 }
+            });
+            deviceNameField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+                Initializer.instance().setDeviceName(newValue);
             });
         } else if (location.toString().endsWith(WIZARD_PAGE_TWO_URL)) {
             LOGGER.debug("initialize page 2");
