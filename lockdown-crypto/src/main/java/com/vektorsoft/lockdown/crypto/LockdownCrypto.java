@@ -18,6 +18,7 @@
 package com.vektorsoft.lockdown.crypto;
 
 import java.security.Provider;
+import java.security.Security;
 
 /**
  * Utility class which performs initialization of cryptography providers.
@@ -52,6 +53,7 @@ public class LockdownCrypto {
     public void initialize(Provider defaultProvider) {
         this.provider = defaultProvider;
         this.initialized = true;
+        Security.addProvider(provider);
     }
 
     public Provider getProvider() {

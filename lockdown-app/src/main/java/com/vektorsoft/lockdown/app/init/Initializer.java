@@ -82,6 +82,9 @@ public class Initializer {
         // generate device seed
         DeviceSeed devSeed = new DeviceSeed();
         byte[] deviceSeed = devSeed.generateDeviceSeed(masterSeedBytes, deviceName);
+        byte[] encSeed = devSeed.getKeySeed(deviceSeed, DeviceSeed.SeedType.ENCRYPTION);
+        byte[] signSeed = devSeed.getKeySeed(deviceSeed, DeviceSeed.SeedType.SIGNING);
+        byte[] authSeed = devSeed.getKeySeed(deviceSeed, DeviceSeed.SeedType.AUTHENTICATION);
     }
 
     public void setMnemonicLanguage(MnemonicLanguage mnemonicLanguage) {
@@ -122,7 +125,10 @@ public class Initializer {
             sb.append(word).append(" ");
         }
         sb.append("{}");
-        sb.append(mnemonicPassword);
+        if(mnemonicPassword != null){
+            sb.append(mnemonicPassword);
+        }
+        
         
         return sb.toString();
     }

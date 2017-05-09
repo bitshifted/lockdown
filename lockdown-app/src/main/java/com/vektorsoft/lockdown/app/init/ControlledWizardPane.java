@@ -37,6 +37,10 @@ public class ControlledWizardPane extends WizardPane {
     @Override
     public void onEnteringPage(Wizard wizard) {
         switch (page) {
+            case KeyringCreateController.WIZ_LANG_SELECT_PAGE:
+                wizard.invalidProperty().unbind();
+                wizard.invalidProperty().bind(controller.getDeviceNameObservable());
+                break;
             case KeyringCreateController.WIZ_WORDS_PAGE:
                 controller.generateMnemonicWords();
                 wizard.invalidProperty().unbind();

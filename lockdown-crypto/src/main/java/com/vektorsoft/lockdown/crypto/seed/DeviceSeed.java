@@ -79,7 +79,7 @@ public class DeviceSeed {
         masterSeedString = Normalizer.normalize(masterSeedString, NORMALIZATION_FORM);
         PBEKeySpec devKeySpec = new PBEKeySpec(masterSeedString.toCharArray(), salt, PBKDF_ITERATIONS, DEVICE_SEED_SIZE);
         SecretKeyFactory devFactory = SecretKeyFactory.getInstance(HMAC_ALGORITHM, LockdownCrypto.instance().getProvider());
-        byte[] deviceSeed = factory.generateSecret(keySpec).getEncoded();
+        byte[] deviceSeed = devFactory.generateSecret(devKeySpec).getEncoded();
         
         return deviceSeed;
     }
@@ -98,7 +98,7 @@ public class DeviceSeed {
      * @return byte array representing salt
      */
     private byte[] generateDeviceSalt(byte[] masterSeed) throws NoSuchAlgorithmException {
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", LockdownCrypto.instance().getProvider());
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         random.setSeed(masterSeed);
         // take random 16 bytes from master seed as seed for salt PRNG
         byte[] saltSeed = new byte[DEVICE_SALT_SIZE];

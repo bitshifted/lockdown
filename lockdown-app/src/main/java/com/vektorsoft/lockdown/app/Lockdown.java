@@ -18,6 +18,7 @@ package com.vektorsoft.lockdown.app;
 
 import com.vektorsoft.lockdown.app.init.InitialSelectionScreen;
 import com.vektorsoft.lockdown.app.init.Initializer;
+import com.vektorsoft.lockdown.crypto.LockdownCrypto;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  *
@@ -64,6 +66,7 @@ public class Lockdown extends Application {
 
     @Override
     public void init() throws Exception {
+        LockdownCrypto.instance().initialize(new BouncyCastleProvider());
         mainScreen = FXMLLoader.load(this.getClass().getResource("/gui/fxml/main_screen.fxml"));
 
         if (!Initializer.instance().checkFileStructure()) {

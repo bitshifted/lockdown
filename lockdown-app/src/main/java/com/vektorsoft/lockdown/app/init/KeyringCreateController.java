@@ -26,12 +26,17 @@ import com.vektorsoft.lockdown.crypto.seed.MnemonicLanguage;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -77,12 +82,12 @@ public class KeyringCreateController implements Initializable {
      * Observable for matching mnemonic password.
      */
     private PasswordMatchObservable mnemonicPswdMatchObservable;
-
     private PasswordMatchObservable keyringPswdMatchObservable;
+    private BooleanProperty deviceNameProperty;
     private PasswordStrengthCalculator pswdStrengthCalc;
     private ResourceBundle resources;
     private boolean mnemonicInitialized = false;
-    
+
     private Label mnemonicGenerationMessage;
     private ProgressBar mnemonicProgress;
 
@@ -136,8 +141,14 @@ public class KeyringCreateController implements Initializable {
                     Initializer.instance().setMnemonicLanguage(newValue);
                 }
             });
+            deviceNameProperty = new SimpleBooleanProperty(true);
             deviceNameField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
                 Initializer.instance().setDeviceName(newValue);
+                if (newValue != null && !newValue.isEmpty()) {
+                    deviceNameProperty.setValue(false);
+                } else {
+                    deviceNameProperty.setValue(true);
+                }
             });
         } else if (location.toString().endsWith(WIZARD_PAGE_TWO_URL)) {
             LOGGER.debug("initialize page 2");
@@ -195,7 +206,7 @@ public class KeyringCreateController implements Initializable {
     public void generateMnemonicWords() {
         Platform.runLater(() -> {
             try {
-                if(mnemonicInitialized) {
+                if (mnemonicInitialized) {
                     return;
                 }
                 String[] words = Initializer.instance().generateMnemonicWords();
@@ -212,12 +223,18 @@ public class KeyringCreateController implements Initializable {
             }
         });
     }
-    
+
     public void generateKeyring() {
         Platform.runLater(() -> {
-            keyringProgress.setProgress(1.0);
-            keyringProgressLabel.setText(resources.getString("page5.generation.complete.msg"));
-            generationSuccessLabel.setVisible(true);
+            try {
+                Initializer.instance().createKeyring();
+                keyringProgress.setProgress(1.0);
+                keyringProgressLabel.setText(resources.getString("page5.generation.complete.msg"));
+                generationSuccessLabel.setVisible(true);
+            } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
+                ex.printStackTrace();
+            }
+
         });
     }
 
@@ -226,6 +243,10 @@ public class KeyringCreateController implements Initializable {
             return mnemonicPswdMatchObservable;
         }
         return keyringPswdMatchObservable;
+    }
+
+    public BooleanProperty getDeviceNameObservable() {
+        return deviceNameProperty;
     }
 
     public void initMnemonicQRCode() {

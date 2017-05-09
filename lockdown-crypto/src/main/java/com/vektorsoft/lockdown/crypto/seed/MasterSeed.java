@@ -19,7 +19,6 @@ package com.vektorsoft.lockdown.crypto.seed;
 
 import com.vektorsoft.lockdown.crypto.LockdownCrypto;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.text.Normalizer;
@@ -66,19 +65,10 @@ public class MasterSeed {
         
     }
     
-    public String generateSeedAsHexString(String[] mnemonic, String password, MnemonicLanguage language) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] bytes = generateSeedFromMnemonic(mnemonic, password, language);
-        return toHexString(bytes);
-    }
+//    public String generateSeedAsHexString(String[] mnemonic, String password, MnemonicLanguage language) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+//        byte[] bytes = generateSeedFromMnemonic(mnemonic, password, language);
+//        return toHexString(bytes);
+//    }
     
-    private String toHexString(byte[] array) {
-        BigInteger bi = new BigInteger(1, array);
-        String hex = bi.toString(16);
-        int paddingLength = (array.length * 2) - hex.length();
-        if (paddingLength > 0) {
-            return String.format("%0" + paddingLength + "d", 0) + hex;
-        } else {
-            return hex;
-        }
-    }
+    
 }

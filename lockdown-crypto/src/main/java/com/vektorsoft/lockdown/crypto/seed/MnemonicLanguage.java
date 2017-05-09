@@ -24,8 +24,11 @@ package com.vektorsoft.lockdown.crypto.seed;
 public enum MnemonicLanguage {
     ENGLISH ("English"),
     SPANISH ("Espanol"),
-    CHINESE ("Chinese"),
-    JAPANESE ("Japanese");
+    CHINESE_TRADITIONALLL ("Chinese (Traditional)"),
+    CHINESE_SIMPLIFIED ("Chinese (Simplified)"),
+    JAPANESE ("Japanese"),
+    FRENCH ("French"),
+    ITALIAN ("Italian");
     
     private MnemonicLanguage(String title) {
         this.title = title;

@@ -44,8 +44,9 @@ public class KeyringCreateWizard extends Wizard {
         resources = ResourceBundle.getBundle(ResourceConstants.KEYRING_CREATE_WIZARD_STRINGS);
         setTitle(resources.getString("create.keyring.wizard.title"));
         
-        languageSelectionPage = new WizardPane();
-        Node page1Content = FXMLLoader.load(getClass().getResource(KeyringCreateController.WIZARD_PAGE_ONE_URL), resources);
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource(KeyringCreateController.WIZARD_PAGE_ONE_URL), resources);
+        Node page1Content = loader1.load();
+        languageSelectionPage = new ControlledWizardPane(loader1.getController(), KeyringCreateController.WIZ_LANG_SELECT_PAGE);
         languageSelectionPage.setHeaderText(resources.getString("page1.header"));
         languageSelectionPage.setContent(page1Content);
         

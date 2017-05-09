@@ -45,7 +45,7 @@ public class Mnemonic {
         wordlist.loadWordlist(language);
         
         // generate random entropy
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", LockdownCrypto.instance().getProvider());
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         byte[] entropyBytes = new byte[entropyInfo.getEntropyLength()/8];
         random.nextBytes(entropyBytes);
         BitSet entropyBits = BitSet.valueOf(entropyBytes); // bit set of entropy 
@@ -74,7 +74,8 @@ public class Mnemonic {
         String[] words = new String[entropyInfo.getWordCount()];
         int  bitIndex = 0;
         for(int i = 0;i < words.length;i++) {
-            long value = allbits.get(bitIndex, bitIndex + WORD_INDEX_LEN).toLongArray()[0];
+            long[] arr = allbits.get(bitIndex, bitIndex + WORD_INDEX_LEN).toLongArray();
+            long value = arr.length > 0 ? arr[0] : 0; // if bit set is all 0s, array is empty. Set value to 0 in that cse
             words[i] = wordlist.getWord((int)value);
             bitIndex += WORD_INDEX_LEN;
         }
